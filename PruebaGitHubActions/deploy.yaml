@@ -1,0 +1,38 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: pruebagitactions-deployment
+    labels:
+        app: pruebagitactions
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: pruebagitactions
+    template:
+        metadata:
+            labels:
+                app: pruebagitactions
+        spec:
+            containers:
+            - name: k8s-azqa
+              image: acrbackoffice.azurecr.io/pruebagitactions:BUILD_NUMBER
+              ports:
+              - containerPort: 80
+            imagePullSecrets:
+            - name: gx17sistavance-prod
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: pruebagitactions
+    labels:
+        app: pruebagitactions
+spec:
+    ports:
+        - name: http-port
+          port: 80
+          targetPort: 80
+    selector:
+        app: pruebagitactions
+    type: LoadBalancer
