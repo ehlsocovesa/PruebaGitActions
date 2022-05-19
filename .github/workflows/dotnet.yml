@@ -24,6 +24,6 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: docker build
-      run: docker build -t pruebagitactions:'${{github.sha}}'
+      run: docker build -t pruebagitactions:1
     - name: acr login
       run: az acr login --name acrbackoffice
